@@ -338,8 +338,16 @@ nav a.admin-link:hover {
 
 .form-buttons {
     display: flex;
+    justify-content: center;
     gap: 15px;
     margin-top: 30px;
+}
+
+/* Login form specific styles */
+.login-form .btn {
+    min-width: 120px;
+    margin: 20px auto;
+    display: block;
 }
 
 /* Responsive Design */

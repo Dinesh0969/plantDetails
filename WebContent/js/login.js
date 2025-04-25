@@ -35,6 +35,20 @@ function toggleTestPassword(button) {
     }
 }
 
+// Toggle password visibility for login form
+function togglePassword(inputId) {
+    const input = document.getElementById(inputId);
+    const button = input.parentElement.querySelector('.password-toggle i');
+    
+    if (input.type === 'password') {
+        input.type = 'text';
+        button.classList.replace('fa-eye', 'fa-eye-slash');
+    } else {
+        input.type = 'password';
+        button.classList.replace('fa-eye-slash', 'fa-eye');
+    }
+}
+
 // Handle login form submission
 function handleLogin(event) {
     event.preventDefault();
