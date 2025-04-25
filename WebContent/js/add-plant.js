@@ -9,31 +9,59 @@ function checkAuth() {
 // Handle logout
 function handleLogout() {
     localStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('username');
     window.location.href = 'login.html';
 }
+
+// Display username
+function displayUsername() {
+    const username = localStorage.getItem('username');
+    if (username) {
+        const header = document.querySelector('header h1');
+        header.textContent = `Welcome, ${username}!`;
+    }
+}
+
+// Get the next available ID
+function getNextId() {
+    return Math.max(...plants.map(plant => plant.id), 0) + 1;
+}
+
+// Initialize the page
+document.addEventListener('DOMContentLoaded', () => {
+    checkAuth();
+    displayUsername();
+    
+    // Add form submission handler
+    const form = document.getElementById('addPlantForm');
+    form.addEventListener('submit', handleAddPlant);
+});
 
 // Handle form submission
 function handleAddPlant(event) {
     event.preventDefault();
     
-    const formData = {
-        name: document.getElementById('name').value,
-        scientificName: document.getElementById('scientificName').value,
-        description: document.getElementById('description').value,
-        careInstructions: document.getElementById('careInstructions').value,
-        imageUrl: document.getElementById('imageUrl').value
+    // Get form data
+    const formData = new FormData(event.target);
+    
+    // Create new plant object
+    const newPlant = {
+        id: getNextId(),
+        name: formData.get('name'),
+        scientificName: formData.get('scientificName'),
+        imageUrl: formData.get('imageUrl'),
+        description: formData.get('description'),
+        careInstructions: formData.get('careInstructions')
     };
     
-    // Validate form data
-    if (!validateForm(formData)) {
-        return false;
-    }
+    // Add new plant to the array
+    plants.push(newPlant);
     
-    // In a real application, this would be an API call
-    // For demo purposes, we'll just redirect to the plants page
+    // Save updated plants array to localStorage
+    localStorage.setItem('plants', JSON.stringify(plants));
+    
+    // Redirect to plants page
     window.location.href = 'plants.html';
-    
-    return false;
 }
 
 // Validate form data
@@ -57,9 +85,4 @@ function validateForm(data) {
     }
     
     return true;
-}
-
-// Initialize the page
-document.addEventListener('DOMContentLoaded', () => {
-    checkAuth();
-}); 
+} 

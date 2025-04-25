@@ -9,11 +9,18 @@
 <body>
     <div class="container">
         <header>
-            <h1 id="plantName">Plant Details</h1>
-            <nav>
-                <a href="plants.html">Back to Plants</a>
-                <a href="#" onclick="handleLogout()">Logout</a>
-            </nav>
+            <div class="header-content">
+                <h1 id="plantName">Plant Details</h1>
+                <nav>
+                    <div class="main-nav">
+                        <a href="plants.html">Back to Plants</a>
+                        <a href="add-plant.html" class="add-plant-btn">Add Plant</a>
+                    </div>
+                    <div class="auth-nav">
+                        <a href="#" onclick="handleLogout()" class="logout-btn">Logout</a>
+                    </div>
+                </nav>
+            </div>
         </header>
         
         <main>
@@ -22,6 +29,8 @@
             </div>
         </main>
     </div>
+    <script src="js/users.js"></script>
+    <script src="js/plant-data.js"></script>
     <script src="js/plant-details.js"></script>
 </body>
 </html> 

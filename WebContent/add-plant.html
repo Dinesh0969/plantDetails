@@ -9,41 +9,46 @@
 <body>
     <div class="container">
         <header>
-            <h1>Add New Plant</h1>
-            <nav>
-                <a href="plants.html">Back to Plants</a>
-                <a href="#" onclick="handleLogout()">Logout</a>
-            </nav>
+            <div class="header-content">
+                <h1>Add New Plant</h1>
+                <nav>
+                    <div class="main-nav">
+                        <a href="plants.html">Back to Plants</a>
+                    </div>
+                    <div class="auth-nav">
+                        <a href="#" onclick="handleLogout()" class="logout-btn">Logout</a>
+                    </div>
+                </nav>
+            </div>
         </header>
         
         <main>
-            <form id="addPlantForm" class="add-plant-form" onsubmit="return handleAddPlant(event)">
+            <form class="add-plant-form" id="addPlantForm">
                 <div class="form-group">
-                    <label for="name">Plant Name:</label>
+                    <label for="name">Plant Name</label>
                     <input type="text" id="name" name="name" required>
                 </div>
                 
                 <div class="form-group">
-                    <label for="scientificName">Scientific Name:</label>
+                    <label for="scientificName">Scientific Name</label>
                     <input type="text" id="scientificName" name="scientificName" required>
                 </div>
                 
                 <div class="form-group">
-                    <label for="description">Description:</label>
+                    <label for="imageUrl">Image URL</label>
+                    <input type="text" id="imageUrl" name="imageUrl" required placeholder="images/your-image.jpg">
+                </div>
+                
+                <div class="form-group">
+                    <label for="description">Description</label>
                     <textarea id="description" name="description" rows="4" required></textarea>
                 </div>
                 
                 <div class="form-group">
-                    <label for="careInstructions">Care Instructions:</label>
-                    <textarea id="careInstructions" name="careInstructions" rows="4" required></textarea>
+                    <label for="careInstructions">Care Instructions</label>
+                    <textarea id="careInstructions" name="careInstructions" rows="6" required 
+                        placeholder="Light: &#10;Water: &#10;Soil: &#10;Temperature: &#10;Humidity: &#10;Fertilizer:"></textarea>
                 </div>
-                
-                <div class="form-group">
-                    <label for="imageUrl">Image URL:</label>
-                    <input type="url" id="imageUrl" name="imageUrl" required>
-                </div>
-                
-                <div id="error-message" class="error-message"></div>
                 
                 <div class="form-buttons">
                     <button type="submit" class="btn">Add Plant</button>
@@ -52,6 +57,7 @@
             </form>
         </main>
     </div>
+    <script src="js/plant-data.js"></script>
     <script src="js/add-plant.js"></script>
 </body>
 </html> 

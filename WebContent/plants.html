@@ -3,18 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Plant Collection</title>
+    <title>Plants</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>Plant Collection</h1>
-            <nav>
-                <a href="plants.html" class="active">All Plants</a>
-                <a href="add-plant.html">Add New Plant</a>
-                <a href="#" onclick="handleLogout()">Logout</a>
-            </nav>
+            <div class="header-content">
+                <h1>My Plant Collection</h1>
+                <nav>
+                    <div class="main-nav">
+                        <a href="plants.html" class="active">All Plants</a>
+                        <a href="add-plant.html" class="add-plant-btn">Add Plant</a>
+                    </div>
+                    <div class="auth-nav">
+                        <a href="#" onclick="handleLogout()" class="logout-btn">Logout</a>
+                    </div>
+                </nav>
+            </div>
         </header>
         
         <main>
@@ -23,6 +29,8 @@
             </div>
         </main>
     </div>
+    <script src="js/users.js"></script>
+    <script src="js/plant-data.js"></script>
     <script src="js/plants.js"></script>
 </body>
 </html> 

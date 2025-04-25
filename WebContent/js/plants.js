@@ -9,42 +9,47 @@ function checkAuth() {
 // Handle logout
 function handleLogout() {
     localStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('username');
     window.location.href = 'login.html';
 }
 
-// Sample plant data (in a real application, this would come from a backend)
-const plants = [
-    {
-        id: 1,
-        name: 'Monstera Deliciosa',
-        scientificName: 'Monstera deliciosa',
-        imageUrl: 'images/plant1.jpg',
-        description: 'The Monstera Deliciosa, also known as the Swiss Cheese Plant, is a popular houseplant known for its large, glossy, perforated leaves.',
-        careInstructions: 'Light: Bright, indirect light\nWater: Water when top inch of soil is dry\nHumidity: Prefers high humidity\nTemperature: 65-85°F (18-29°C)\nSoil: Well-draining potting mix'
-    },
-    {
-        id: 2,
-        name: 'Snake Plant',
-        scientificName: 'Sansevieria trifasciata',
-        imageUrl: 'images/plant2.jpg',
-        description: 'The Snake Plant is a hardy houseplant known for its upright, sword-like leaves with yellow edges.',
-        careInstructions: 'Light: Low to bright indirect light\nWater: Allow soil to dry between waterings\nHumidity: Tolerates low humidity\nTemperature: 60-85°F (15-29°C)\nSoil: Well-draining potting mix'
+// Display username and update navigation
+function updateHeader() {
+    const username = localStorage.getItem('username');
+    if (username) {
+        const header = document.querySelector('header h1');
+        header.textContent = `My Plant Collection`;
+
+        // Add admin navigation if user is admin
+        if (isAdmin(username)) {
+            const nav = document.querySelector('nav .main-nav');
+            const manageUsersLink = document.createElement('a');
+            manageUsersLink.href = 'manage-users.html';
+            manageUsersLink.textContent = 'Manage Users';
+            manageUsersLink.className = 'admin-link';
+            nav.insertBefore(manageUsersLink, nav.lastElementChild);
+        }
     }
-];
+}
 
 // Load plants into the grid
 function loadPlants() {
     const plantGrid = document.getElementById('plantGrid');
     plantGrid.innerHTML = ''; // Clear existing content
     
-    plants.forEach(plant => {
+    // Get plants from localStorage
+    const currentPlants = getPlants();
+    
+    currentPlants.forEach(plant => {
         const plantCard = document.createElement('div');
         plantCard.className = 'plant-card';
         plantCard.innerHTML = `
             <img src="${plant.imageUrl}" alt="${plant.name}">
-            <h3>${plant.name}</h3>
-            <p class="scientific-name">${plant.scientificName}</p>
-            <a href="plant-details.html?id=${plant.id}" class="btn">View Details</a>
+            <div class="card-content">
+                <h3>${plant.name}</h3>
+                <p class="scientific-name">${plant.scientificName}</p>
+                <a href="plant-details.html?id=${plant.id}" class="btn">View Details</a>
+            </div>
         `;
         plantGrid.appendChild(plantCard);
     });
@@ -53,5 +58,6 @@ function loadPlants() {
 // Initialize the page
 document.addEventListener('DOMContentLoaded', () => {
     checkAuth();
+    updateHeader();
     loadPlants();
 }); 

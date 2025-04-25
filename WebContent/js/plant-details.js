@@ -9,13 +9,30 @@ function checkAuth() {
 // Handle logout
 function handleLogout() {
     localStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('username');
     window.location.href = 'login.html';
+}
+
+// Display username and update navigation
+function updateHeader() {
+    const username = localStorage.getItem('username');
+    if (username) {
+        // Add admin navigation if user is admin
+        if (isAdmin(username)) {
+            const nav = document.querySelector('nav .main-nav');
+            const manageUsersLink = document.createElement('a');
+            manageUsersLink.href = 'manage-users.html';
+            manageUsersLink.textContent = 'Manage Users';
+            manageUsersLink.className = 'admin-link';
+            nav.insertBefore(manageUsersLink, nav.lastElementChild);
+        }
+    }
 }
 
 // Get plant ID from URL
 function getPlantId() {
     const urlParams = new URLSearchParams(window.location.search);
-    return urlParams.get('id');
+    return parseInt(urlParams.get('id'));
 }
 
 // Load plant details
@@ -26,8 +43,10 @@ function loadPlantDetails() {
         return;
     }
 
-    // In a real application, this would be an API call
-    const plant = plants.find(p => p.id === parseInt(plantId));
+    // Get plants from localStorage
+    const currentPlants = getPlants();
+    const plant = currentPlants.find(p => p.id === plantId);
+    
     if (!plant) {
         window.location.href = 'plants.html';
         return;
@@ -63,5 +82,6 @@ function loadPlantDetails() {
 // Initialize the page
 document.addEventListener('DOMContentLoaded', () => {
     checkAuth();
+    updateHeader();
     loadPlantDetails();
 }); 

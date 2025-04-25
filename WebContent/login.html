@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Plant Details</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
     <div class="container">
@@ -13,17 +14,30 @@
             <form id="loginForm" onsubmit="return handleLogin(event)">
                 <div class="form-group">
                     <label for="username">Username:</label>
-                    <input type="text" id="username" name="username" required>
+                    <input type="text" id="username" name="username" required autocomplete="username">
                 </div>
                 <div class="form-group">
                     <label for="password">Password:</label>
-                    <input type="password" id="password" name="password" required>
+                    <div class="password-input-container">
+                        <input type="password" id="password" name="password" required autocomplete="current-password">
+                        <button type="button" class="password-toggle" onclick="togglePassword('password')">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
                 </div>
                 <div id="error-message" class="error-message"></div>
                 <button type="submit" class="btn">Login</button>
             </form>
+            <div class="login-info">
+                <h2>Available Users for Testing</h2>
+                <p>Click the eye icon to reveal passwords</p>
+                <ul>
+                    <!-- Users will be dynamically populated here -->
+                </ul>
+            </div>
         </div>
     </div>
+    <script src="js/users.js"></script>
     <script src="js/login.js"></script>
 </body>
 </html> 
